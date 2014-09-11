@@ -1,0 +1,13 @@
+PODS:
+  - Reveal-iOS-SDK (1.0.4)
+  - UIView-Autolayout (0.2.0)
+
+DEPENDENCIES:
+  - Reveal-iOS-SDK
+  - UIView-Autolayout (~> 0.2.0)
+
+SPEC CHECKSUMS:
+  Reveal-iOS-SDK: d3c8e109d42219daaa7a6e1ad2de34f0bdbb7a88
+  UIView-Autolayout: 7c05eb666738eba682f686c2da236578177e2ebb
+
+COCOAPODS: 0.33.1

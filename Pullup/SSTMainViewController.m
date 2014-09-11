@@ -23,26 +23,36 @@
 
 #endif
 
-@interface SSTMainViewController () <SSTCollectionDelegate>
+#define kTagCollectionContainerView 100
+#define kTagClippedView 200
 
-@property (weak, nonatomic) IBOutlet UIView *topContainerView;
-@property (weak, nonatomic) IBOutlet UIView *collectionContainerView;
-@property (weak, nonatomic) IBOutlet UIView *bottomNavContainerView;
+#define kCollectionContainerViewHeight 150.0f
+#define kCollectionViewHeight 100.0f
+#define kBottomNavigationViewHeight 50.0f
+
+@interface SSTMainViewController () <SSTCollectionDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *expandedReferenceView;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionHeightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionBottomConstraint;
+@property (weak, nonatomic) UIView *collectionContainerView;
+@property (weak, nonatomic) UIView *clippedContainerView;
 
-@property (weak, nonatomic) IBOutlet UIViewController *locationBarViewController;
-@property (weak, nonatomic) IBOutlet SSTCollectionViewController *collectionViewController;
-@property (weak, nonatomic) IBOutlet UIViewController *bottomNavViewController;
+
+@property (weak, nonatomic) NSLayoutConstraint *collectionContainerHeightConstraint;
+@property (weak, nonatomic) NSLayoutConstraint *clippedBottomConstraint;
+
+@property (weak, nonatomic) UIViewController *locationBarViewController;
+@property (weak, nonatomic) SSTCollectionViewController *collectionViewController;
+@property (weak, nonatomic) UIViewController *bottomNavViewController;
 
 @end
 
 @implementation SSTMainViewController {
     BOOL _isExpanded;
 }
+
+#pragma mark - View Lifecyle
+#pragma mark -
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,15 +77,44 @@
     //[self pullUpAndDown:TRUE];
 }
 
+#pragma mark - Private
+#pragma mark -
+
 - (void)embedChildViewControllers {
     if (!self.locationBarViewController.view.superview) {
-        [self embedViewController:self.locationBarViewController intoView:self.topContainerView placementBlock:^(UIView *view) {
-            [view pinToSuperviewEdges:JRTViewPinAllEdges inset:0.0f];
+        [self embedViewController:self.locationBarViewController intoView:self.view placementBlock:^(UIView *view) {
+            [view pinToSuperviewEdges:JRTViewPinTopEdge inset:0.0f usingLayoutGuidesFrom:self];
+            [view pinToSuperviewEdges:JRTViewPinLeftEdge | JRTViewPinRightEdge inset:0.0f];
+            [view constrainToHeight:40.0f];
         }];
     }
     
+    if (!self.collectionContainerView.superview && !self.clippedContainerView.superview) {
+        UIView *collectionContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kCollectionContainerViewHeight)];
+        collectionContainerView.tag = kTagCollectionContainerView;
+        collectionContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+        collectionContainerView.backgroundColor = [UIColor clearColor];
+        
+        [self.view addSubview:collectionContainerView];
+        [collectionContainerView pinToSuperviewEdges:JRTViewPinBottomEdge inset:0.0f usingLayoutGuidesFrom:self];
+        [collectionContainerView pinToSuperviewEdges:JRTViewPinLeftEdge | JRTViewPinRightEdge inset:0.0];
+        self.collectionContainerHeightConstraint = [collectionContainerView constrainToHeight:kCollectionContainerViewHeight];
+        self.collectionContainerView = collectionContainerView;
+        
+        UIView *clippedContainerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), kCollectionViewHeight)];
+        clippedContainerView.tag = kTagClippedView;
+        clippedContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+        clippedContainerView.clipsToBounds = TRUE;
+        clippedContainerView.backgroundColor = [UIColor clearColor];
+        [collectionContainerView addSubview:clippedContainerView];
+        [clippedContainerView pinToSuperviewEdges:JRTViewPinLeftEdge | JRTViewPinRightEdge inset:0.0f];
+        [clippedContainerView pinToSuperviewEdges:JRTViewPinTopEdge inset:0.0f];
+        self.clippedBottomConstraint = [clippedContainerView pinToSuperviewEdges:JRTViewPinBottomEdge inset:kBottomNavigationViewHeight][0];
+        self.clippedContainerView = clippedContainerView;
+    }
+    
     if (!self.collectionViewController.view.superview) {
-        [self embedViewController:self.collectionViewController intoView:self.collectionContainerView placementBlock:^(UIView *view) {
+        [self embedViewController:self.collectionViewController intoView:self.clippedContainerView placementBlock:^(UIView *view) {
             [view pinToSuperviewEdges:JRTViewPinTopEdge | JRTViewPinLeftEdge | JRTViewPinRightEdge inset:0.0f];
             CGFloat height = CGRectGetHeight(self.expandedReferenceView.frame);
             [view constrainToHeight:height];
@@ -83,16 +122,17 @@
     }
 
     if (!self.bottomNavViewController.view.superview) {
-        [self embedViewController:self.bottomNavViewController intoView:self.bottomNavContainerView placementBlock:^(UIView *view) {
-            [view pinToSuperviewEdges:JRTViewPinAllEdges inset:0.0f];
+        [self embedViewController:self.bottomNavViewController intoView:self.collectionContainerView placementBlock:^(UIView *view) {
+            [view pinToSuperviewEdges:JRTViewPinBottomEdge | JRTViewPinLeftEdge | JRTViewPinRightEdge inset:0.0f];
+            [view constrainToHeight:kBottomNavigationViewHeight];
         }];
     }
 }
 
 - (void)pullUpAndDown:(BOOL)animated {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2.0f * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0f * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self pullUp:animated withCompletionBlock:^{
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2.0f * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0f * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 [self pullDown:animated withCompletionBlock:^{
                     [self pullUpAndDown:animated];
                 }];
@@ -106,21 +146,17 @@
 - (void)pullUp:(BOOL)animated withCompletionBlock:(void (^)())completionBlock {
     CGFloat duration = animated ? 0.75f : 0.0f;
     CGFloat height = CGRectGetHeight(self.expandedReferenceView.frame);
-    CGPoint origin = self.topContainerView.frame.origin;
     
     UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
     [UIView animateWithDuration:duration delay:0.0f usingSpringWithDamping:0.6f initialSpringVelocity:0.25f options:options animations:^{
-        CGRect frame = self.collectionContainerView.frame;
-        frame.origin = origin;
-        frame.size.height = height;
-        self.collectionContainerView.frame = frame;
+        self.collectionContainerHeightConstraint.constant = height;
+        self.clippedBottomConstraint.constant = 0.0f;
+
+        [self.view setNeedsLayout];
+        [self.view layoutIfNeeded];
         
         self.locationBarViewController.view.alpha = 0.0f;
     } completion:^(BOOL finished) {
-        // set the contraints to match the current frame
-        self.collectionHeightConstraint.constant = height;
-        self.collectionBottomConstraint.constant = 0.0f;
-        
         _isExpanded = TRUE;
         
         [self.collectionViewController expandedViewDidAppear];
@@ -132,25 +168,22 @@
 }
 
 - (void)pullDown:(BOOL)animated withCompletionBlock:(void (^)())completionBlock {
-    // TODO: set the height back to 100 and set the origin to the total view height minus the heights of the container and bottom nav view
-    
     CGFloat duration = animated ? 0.75f : 0.0f;
-    CGFloat height = 100.0f;
-    CGPoint origin = CGPointMake(0.0f, CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.bottomNavContainerView.frame) - 100.0f);
     
     UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
     [UIView animateWithDuration:duration delay:0.0f usingSpringWithDamping:0.9f initialSpringVelocity:0.25f options:options animations:^{
-        CGRect frame = self.collectionContainerView.frame;
-        frame.origin = origin;
-        frame.size.height = height;
-        self.collectionContainerView.frame = frame;
+        self.collectionContainerHeightConstraint.constant = kCollectionContainerViewHeight;
+        self.clippedBottomConstraint.constant = kBottomNavigationViewHeight;
+        
+        [self.view setNeedsLayout];
+        [self.view layoutIfNeeded];
+        
+        CGRect clippedFrame = self.clippedContainerView.frame;
+        clippedFrame.size.height = kCollectionViewHeight;
+        self.clippedContainerView.frame = clippedFrame;
         
         self.locationBarViewController.view.alpha = 1.0f;
     } completion:^(BOOL finished) {
-        // set the contraints to match the current frame
-        self.collectionHeightConstraint.constant = height;
-        self.collectionBottomConstraint.constant = CGRectGetHeight(self.bottomNavContainerView.frame);
-        
         _isExpanded = FALSE;
         
         [self.collectionViewController expandedViewDidDisappear];
@@ -184,7 +217,7 @@
 }
 
 - (void)collectionViewController:(SSTCollectionViewController *)vc didMoveToPoint:(CGPoint)point {
-    CGRect frame = self.collectionContainerView.frame;
+    CGRect frame = self.clippedContainerView.frame;
     
     if (_isExpanded) {
         CGFloat originalY = self.topLayoutGuide.length;
@@ -192,19 +225,18 @@
         
         frame.origin.y = updatedY;
         
-        self.collectionContainerView.frame = frame;
+        self.clippedContainerView.frame = frame;
     }
     else {
-
         CGFloat originalY = CGRectGetHeight(self.view.frame) - 150.0f;
         CGFloat updatedY = MAX(MIN(originalY, originalY + point.y), 0.0f);
         CGFloat viewHeight = CGRectGetHeight(self.view.frame);
-        CGFloat updateHeight = viewHeight - updatedY - CGRectGetHeight(self.bottomNavContainerView.frame);
+        CGFloat updateHeight = viewHeight - updatedY - kBottomNavigationViewHeight;
         
         frame.origin.y = updatedY;
         
-        self.collectionContainerView.frame = frame;
-        self.collectionHeightConstraint.constant = updateHeight;
+        self.clippedContainerView.frame = frame;
+        self.collectionContainerHeightConstraint.constant = updateHeight;
     }
 }
 

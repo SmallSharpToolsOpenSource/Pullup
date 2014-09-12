@@ -23,7 +23,6 @@
 @end
 
 @implementation SSTCollectionViewController {
-    CGFloat _cellHeight;
     CGPoint _panGestureStartingPoint;
 }
 

@@ -12,13 +12,13 @@
 #define kTagHeaderLabel 2
 #define kTagTableView 3
 
-@interface SSTCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface SSTCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 
 @property (readonly, nonatomic) UIView *primaryView;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGestureRecognizer;
+@property (strong, nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
 
 @end
 
@@ -126,6 +126,12 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"PullupCell" forIndexPath:indexPath];
+    
+    if (self.panGestureRecognizer == nil) {
+        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)];
+        panGestureRecognizer.delegate = self;
+        self.panGestureRecognizer = panGestureRecognizer;
+    }
     
     UIView *headerView = [cell viewWithTag:kTagHeaderView];
     headerView.gestureRecognizers = @[self.panGestureRecognizer];

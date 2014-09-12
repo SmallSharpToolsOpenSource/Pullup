@@ -237,16 +237,9 @@
                     <size key="freeformSize" width="320" height="400"/>
                     <connections>
                         <outlet property="collectionView" destination="hqY-TV-EZC" id="eTl-HC-uuF"/>
-                        <outlet property="panGestureRecognizer" destination="6rC-nL-ACY" id="we7-OD-xnQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gnq-A5-mET" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="6rC-nL-ACY">
-                    <connections>
-                        <action selector="panGestureRecognized:" destination="Tlp-l9-eum" id="2vt-WU-eeH"/>
-                        <outlet property="delegate" destination="Tlp-l9-eum" id="w5v-in-ydl"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1100" y="109"/>
         </scene>

@@ -46,7 +46,6 @@
 @property (weak, nonatomic) UIView *collectionContainerView;
 @property (weak, nonatomic) UIView *clippedContainerView;
 
-
 @property (weak, nonatomic) NSLayoutConstraint *collectionContainerHeightConstraint;
 @property (weak, nonatomic) NSLayoutConstraint *clippedBottomConstraint;
 

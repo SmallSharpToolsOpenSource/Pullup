@@ -14,8 +14,6 @@
 
 @property (weak, nonatomic) id<SSTCollectionDelegate> delegate;
 
-- (void)setCellHeight:(CGFloat)cellHeight;
-
 - (void)expandedViewDidAppear;
 
 - (void)expandedViewDidDisappear;

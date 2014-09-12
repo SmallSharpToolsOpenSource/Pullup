@@ -150,12 +150,25 @@
                                                                 <constraint firstAttribute="height" constant="1" id="alL-Py-Wfy"/>
                                                             </constraints>
                                                         </view>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAR-Ng-ZOZ" userLabel="Detail Disclosure Button">
+                                                            <rect key="frame" x="278" y="69" width="22" height="22"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <state key="normal">
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="detailDisclosureButtonTapped:" destination="Tlp-l9-eum" eventType="touchUpInside" id="Cwc-Jy-cvE"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="0GV-91-fxG"/>
                                                         <constraint firstAttribute="centerX" secondItem="rSH-Gv-9jp" secondAttribute="centerX" id="2rG-o2-QSG"/>
+                                                        <constraint firstAttribute="trailing" secondItem="KAR-Ng-ZOZ" secondAttribute="trailing" constant="20" id="3fB-Hl-grn"/>
                                                         <constraint firstAttribute="bottom" secondItem="fen-nQ-G3d" secondAttribute="bottom" id="EWz-Zt-Ohh"/>
+                                                        <constraint firstItem="fen-nQ-G3d" firstAttribute="top" secondItem="KAR-Ng-ZOZ" secondAttribute="bottom" constant="8" id="JDQ-DV-Cc4"/>
                                                         <constraint firstAttribute="centerY" secondItem="rSH-Gv-9jp" secondAttribute="centerY" id="U6K-AQ-58U"/>
                                                         <constraint firstAttribute="trailing" secondItem="fen-nQ-G3d" secondAttribute="trailing" id="ZrB-eO-whr"/>
                                                         <constraint firstItem="fen-nQ-G3d" firstAttribute="leading" secondItem="F29-27-Rkc" secondAttribute="leading" id="wC6-dq-gVc"/>

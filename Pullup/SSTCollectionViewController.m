@@ -41,10 +41,6 @@
 #pragma mark - Public
 #pragma mark -
 
-- (void)setCellHeight:(CGFloat)cellHeight {
-    _cellHeight = cellHeight;
-}
-
 - (void)expandedViewDidAppear {
     if (self.collectionView.visibleCells.count) {
         UICollectionViewCell *cell = self.collectionView.visibleCells[0];
@@ -57,17 +53,16 @@
     // do nothing
 }
 
-
 #pragma mark - Private
 #pragma mark -
 
-- (void)pannningDidMoveToPoint:(CGPoint)point {
+- (void)panningDidMoveToPoint:(CGPoint)point {
     if ([self.delegate respondsToSelector:@selector(collectionViewController:didMoveToPoint:)]) {
         [self.delegate collectionViewController:self didMoveToPoint:point];
     }
 }
 
-- (void)pannningDidStopMovingAtPoint:(CGPoint)point withVelocity:(CGPoint)velocity {
+- (void)panningDidStopMovingAtPoint:(CGPoint)point withVelocity:(CGPoint)velocity {
     if ([self.delegate respondsToSelector:@selector(collectionViewController:didStopMovingAtPoint:withVelocity:)]) {
         [self.delegate collectionViewController:self didStopMovingAtPoint:point withVelocity:velocity];
     }
@@ -81,36 +76,45 @@
     return nil;
 }
 
-#pragma mark - User Actions
-#pragma mark -
-
 #pragma mark - Gestures
 #pragma mark -
 
 - (IBAction)panGestureRecognized:(UIPanGestureRecognizer *)gestureRecognizer {
     CGPoint point = [gestureRecognizer locationInView:self.primaryView];
-    CGFloat yDelta = point.y - _panGestureStartingPoint.y;
-
+    CGFloat adjustedY = point.y - _panGestureStartingPoint.y;
+    
     switch (gestureRecognizer.state) {
         case UIGestureRecognizerStateBegan:
         case UIGestureRecognizerStateChanged: {
-                [self pannningDidMoveToPoint:CGPointMake(0.0f, yDelta)];
+                [self panningDidMoveToPoint:CGPointMake(0.0f, adjustedY)];
             }
             break;
             
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed: {
-                // Release to either expand or collapse depending on current position and velocity
                 CGPoint velocity = [gestureRecognizer velocityInView:gestureRecognizer.view];
-                [self pannningDidStopMovingAtPoint:CGPointMake(0.0f, yDelta) withVelocity:velocity];
+                [self panningDidStopMovingAtPoint:CGPointMake(0.0f, adjustedY) withVelocity:velocity];
             }
             
             break;
             
         default:
+            NSAssert(FALSE, @"Condition should never occur.");
             break;
     }
+}
+
+#pragma mark - User Actions
+#pragma mark -
+
+- (IBAction)detailDisclosureButtonTapped:(id)sender {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Info"
+                                                        message:@"You tapped the detail disclosure button."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView show];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -163,7 +167,6 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(320.0f, CGRectGetHeight(self.view.frame));
-//    return CGSizeMake(320.0f, _cellHeight > 0 ? _cellHeight : CGRectGetHeight(self.view.frame));
 }
 
 #pragma mark - UITableViewDataSource
@@ -205,13 +208,13 @@
     BOOL should = YES;
     
     if ([gestureRecognizer isEqual:self.panGestureRecognizer]) {
-        CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view.superview];
+        CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view];
         // Check for vertical gesture
         
         should = fabsf(translation.y) > fabsf(translation.x);
         
         if (should) {
-            CGPoint point = [gestureRecognizer locationInView:self.primaryView];
+            CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
             _panGestureStartingPoint = point;
         }
     }

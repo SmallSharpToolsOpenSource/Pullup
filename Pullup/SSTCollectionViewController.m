@@ -12,6 +12,8 @@
 #define kTagHeaderLabel 2
 #define kTagTableView 3
 
+#define kNumberOfItems 10
+
 @interface SSTCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 
 @property (readonly, nonatomic) UIView *primaryView;
@@ -120,7 +122,7 @@
 #pragma mark -
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 10;
+    return kNumberOfItems;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -240,11 +242,21 @@
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
-    if (fabsf(velocity.x) > 0.1) {
-        CGFloat width = CGRectGetWidth(self.view.frame);
+    // if the velocity is "slow" it should just go the next cell, otherwise let it go to the next paged position
+    // positive x is moving right, negative x is moving left
+    // slow is < 0.75
+    
+    CGFloat width = CGRectGetWidth(self.collectionView.frame);
+    NSUInteger currentIndex = MAX(MIN(round(self.collectionView.contentOffset.x / CGRectGetWidth(self.collectionView.frame)), kNumberOfItems - 1), 0);
+    
+    if (fabsf(velocity.x) > 2.0) {
         CGFloat x = targetContentOffset->x;
         x = roundf(x / width) * width;
         targetContentOffset->x = x;
+    }
+    else {
+        NSUInteger targetIndex = velocity.x > 0.0 ? MIN(currentIndex + 1, kNumberOfItems - 1) : MAX(currentIndex - 1, 0);
+        targetContentOffset->x = targetIndex * width;
     }
 }
 

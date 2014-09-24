@@ -79,8 +79,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    //[self pullUpAndDown:TRUE];
 }
 
 #pragma mark - Private
@@ -117,6 +115,9 @@
         [clippedContainerView pinToSuperviewEdges:JRTViewPinTopEdge inset:0.0f];
         self.clippedBottomConstraint = [clippedContainerView pinToSuperviewEdges:JRTViewPinBottomEdge inset:kFooterNavigationViewHeight][0];
         self.clippedContainerView = clippedContainerView;
+        
+        NSAssert(self.collectionContainerHeightConstraint, @"Constraint is required");
+        NSAssert(self.clippedBottomConstraint, @"Constraint is required");
     }
     
     if (!self.collectionViewController.view.superview) {
@@ -145,8 +146,6 @@
             });
         }];
     });
-    
-//    CGFloat height = CGRectGetHeight(self.expandedReferenceView.frame);
 }
 
 - (void)pullUp:(BOOL)animated withCompletionBlock:(void (^)())completionBlock {
@@ -231,20 +230,23 @@
 }
 
 - (void)collectionViewController:(SSTCollectionViewController *)vc didMoveToPoint:(CGPoint)point {
-    CGRect frame = self.clippedContainerView.frame;
+    CGFloat height = CGRectGetHeight(self.expandedReferenceView.frame) - point.y;
     
-    if (_isExpanded) {
-        frame.origin.y = point.y;
-        
-        self.clippedContainerView.frame = frame;
-    }
-    else {
-        CGFloat height = CGRectGetHeight(self.expandedReferenceView.frame) - point.y;
-        frame.origin.y = point.y;
-        
-        self.clippedContainerView.frame = frame;
-        self.collectionContainerHeightConstraint.constant = height;
-    }
+    CGRect containerFrame = self.collectionContainerView.frame;
+    containerFrame.origin.y = point.y;
+    containerFrame.size.height = height;
+    self.collectionContainerView.frame = containerFrame;
+    
+    CGRect clippedFrame = self.clippedContainerView.frame;
+    clippedFrame.origin.y = 0.0f;
+    clippedFrame.size.height = height - kFooterNavigationViewHeight;
+    self.clippedContainerView.frame = clippedFrame;
+    
+    self.collectionContainerHeightConstraint.constant = height;
+    self.clippedBottomConstraint.constant = kFooterNavigationViewHeight;
+    
+    [self.view setNeedsLayout];
+    [self.view layoutIfNeeded];
 }
 
 - (void)collectionViewController:(SSTCollectionViewController *)vc didStopMovingAtPoint:(CGPoint)point withVelocity:(CGPoint)velocity {

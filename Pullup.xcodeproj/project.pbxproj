@@ -60,7 +60,8 @@
 		269A3F3E19BFBED0009539B7 /* SSTMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTMainViewController.m; sourceTree = "<group>"; };
 		269A3F4019BFBF10009539B7 /* SSTCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTCollectionViewController.h; sourceTree = "<group>"; };
 		269A3F4119BFBF10009539B7 /* SSTCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTCollectionViewController.m; sourceTree = "<group>"; };
-		9EC18F20C3A946899EAE5464 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		66A373CE96FE14E2E64F30DA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		7A567FC0BE19E6BD98042EA4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C90C07D2371F4ECFA5A4955A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,7 +97,7 @@
 				269A3F2A19BFB94C009539B7 /* PullupTests */,
 				269A3F0419BFB94C009539B7 /* Frameworks */,
 				269A3F0319BFB94C009539B7 /* Products */,
-				9EC18F20C3A946899EAE5464 /* Pods.xcconfig */,
+				439A8962575F8A4F98B48A82 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,10 +126,10 @@
 			isa = PBXGroup;
 			children = (
 				269A3F0C19BFB94C009539B7 /* Supporting Files */,
+				269A3F1D19BFB94C009539B7 /* Images.xcassets */,
 				269A3F1419BFB94C009539B7 /* SSTAppDelegate.h */,
 				269A3F1519BFB94C009539B7 /* SSTAppDelegate.m */,
 				269A3F1719BFB94C009539B7 /* Main.storyboard */,
-				269A3F1D19BFB94C009539B7 /* Images.xcassets */,
 				269A3F3A19BFBCBB009539B7 /* SSTBaseViewController.h */,
 				269A3F3B19BFBCBB009539B7 /* SSTBaseViewController.m */,
 				269A3F3D19BFBED0009539B7 /* SSTMainViewController.h */,
@@ -166,6 +167,15 @@
 				269A3F2D19BFB94C009539B7 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		439A8962575F8A4F98B48A82 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7A567FC0BE19E6BD98042EA4 /* Pods.debug.xcconfig */,
+				66A373CE96FE14E2E64F30DA /* Pods.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,7 +286,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B0BE1157D8B14681A80A3B53 /* Check Pods Manifest.lock */ = {
@@ -427,13 +437,23 @@
 		};
 		269A3F3519BFB94D009539B7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9EC18F20C3A946899EAE5464 /* Pods.xcconfig */;
+			baseConfigurationReference = 7A567FC0BE19E6BD98042EA4 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pullup/Pullup-Prefix.pch";
 				INFOPLIST_FILE = "Pullup/Pullup-Info.plist";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UIView-Autolayout\"",
+					"-Werror",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -441,13 +461,23 @@
 		};
 		269A3F3619BFB94D009539B7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9EC18F20C3A946899EAE5464 /* Pods.xcconfig */;
+			baseConfigurationReference = 66A373CE96FE14E2E64F30DA /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pullup/Pullup-Prefix.pch";
 				INFOPLIST_FILE = "Pullup/Pullup-Info.plist";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UIView-Autolayout\"",
+					"-Werror",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

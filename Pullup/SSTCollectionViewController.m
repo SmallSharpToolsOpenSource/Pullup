@@ -218,7 +218,7 @@
         CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view];
         // Check for vertical gesture
         
-        should = fabsf(translation.y) > fabsf(translation.x);
+        should = fabs(translation.y) > fabs(translation.x);
         
         if (should) {
             CGPoint point = [gestureRecognizer locationInView:gestureRecognizer.view];
@@ -249,9 +249,9 @@
     CGFloat width = CGRectGetWidth(self.collectionView.frame);
     NSUInteger currentIndex = MAX(MIN(round(self.collectionView.contentOffset.x / CGRectGetWidth(self.collectionView.frame)), kNumberOfItems - 1), 0);
     
-    if (fabsf(velocity.x) > 2.0) {
+    if (fabs(velocity.x) > 2.0) {
         CGFloat x = targetContentOffset->x;
-        x = roundf(x / width) * width;
+        x = round(x / width) * width;
         targetContentOffset->x = x;
     }
     else {

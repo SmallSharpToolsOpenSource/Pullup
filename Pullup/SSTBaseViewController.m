@@ -14,8 +14,6 @@
 
 @implementation SSTBaseViewController
 
-
-
 #pragma mark - Embedding View Controllers
 
 - (void)fillSubview:(UIView *)subview inSuperView:(UIView *)superview {

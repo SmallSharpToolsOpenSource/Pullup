@@ -9,37 +9,19 @@
 #import "SSTMainViewController.h"
 
 #import "SSTCollectionViewController.h"
-
+#import "SSTCollectionViewCoordinator.h"
 #import "UIView+AutoLayout.h"
-
-// Make sure NDEBUG is defined on Release
-#ifndef NDEBUG
-
-#define DebugLog(message, ...) NSLog(@"%s: " message, __PRETTY_FUNCTION__, ##__VA_ARGS__)
-
-#else
-
-#define DebugLog(message, ...)
-
-#endif
-
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-
-#define isiOS7OrLater floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1
-
-#define LOG_FRAME(label, frame) DebugLog(@"%@: %f, %f, %f, %f", label, frame.origin.x, frame.origin.y, frame.size.width, frame.size.height)
-#define LOG_SIZE(label, size) DebugLog(@"%@, %f, %f", label, size.width, size.height)
-#define LOG_POINT(label, point) DebugLog(@"%@: %f, %f", label, point.x, point.y)
-#define LOG_OFFSET(label, offset) DebugLog(@"%@: %f, %f", label, offset.x, offset.y)
+#import "Macros.h"
 
 #define kTagCollectionContainerView 100
 #define kTagClippedView 200
 
+#define kLocationBarHeight 40.0f
 #define kCollectionContainerViewHeight 150.0f
 #define kCollectionViewHeight 100.0f
 #define kFooterNavigationViewHeight 50.0f
 
-@interface SSTMainViewController () <SSTCollectionDelegate>
+@interface SSTMainViewController () <SSTCollectionViewCoordinatorDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *expandedReferenceView;
 
@@ -77,10 +59,6 @@
     [self embedChildViewControllers];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
 #pragma mark - Private
 #pragma mark -
 
@@ -89,7 +67,7 @@
         [self embedViewController:self.locationBarViewController intoView:self.view placementBlock:^(UIView *view) {
             [view pinToSuperviewEdges:JRTViewPinTopEdge inset:0.0f usingLayoutGuidesFrom:self];
             [view pinToSuperviewEdges:JRTViewPinLeftEdge | JRTViewPinRightEdge inset:0.0f];
-            [view constrainToHeight:40.0f];
+            [view constrainToHeight:kLocationBarHeight];
         }];
     }
     
@@ -109,7 +87,7 @@
         clippedContainerView.tag = kTagClippedView;
         clippedContainerView.translatesAutoresizingMaskIntoConstraints = NO;
         clippedContainerView.clipsToBounds = TRUE;
-        clippedContainerView.backgroundColor = [UIColor clearColor];
+//        clippedContainerView.backgroundColor = [UIColor yellowColor];
         [collectionContainerView addSubview:clippedContainerView];
         [clippedContainerView pinToSuperviewEdges:JRTViewPinLeftEdge | JRTViewPinRightEdge inset:0.0f];
         [clippedContainerView pinToSuperviewEdges:JRTViewPinTopEdge inset:0.0f];
@@ -150,7 +128,14 @@
 
 - (void)pullUp:(BOOL)animated withCompletionBlock:(void (^)())completionBlock {
     CGFloat duration = animated ? 0.75f : 0.0f;
+    CGFloat bottomNavHeight = 0.0; //CGRectGetHeight(self.bottomNavViewController.view.frame);
     CGFloat height = CGRectGetHeight(self.expandedReferenceView.frame);
+    
+    self.expandedReferenceView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.25];
+    self.expandedReferenceView.hidden = NO;
+    
+    DebugLog(@"height: %f", height);
+    DebugLog(@"bottomNavHeight: %f", bottomNavHeight);
     
     UIViewAnimationOptions options = UIViewAnimationOptionBeginFromCurrentState;
     [UIView animateWithDuration:duration delay:0.0f usingSpringWithDamping:0.6f initialSpringVelocity:0.25f options:options animations:^{
@@ -207,14 +192,14 @@
     }];
 }
 
-#pragma mark - SSTCollectionDelegate
+#pragma mark - SSTCollectionViewCoordinatorDelegate
 #pragma mark -
 
-- (UIView *)collectionViewControllerPrimaryView:(SSTCollectionViewController *)vc {
+- (UIView *)collectionViewCoordinatorPrimaryView:(SSTCollectionViewCoordinator *)vc {
     return self.expandedReferenceView;
 }
 
-- (void)collectionViewControllerDidTapHeader:(SSTCollectionViewController *)vc {
+- (void)collectionViewCoordinatorDidTapHeader:(SSTCollectionViewCoordinator *)vc {
     if (_isExpanded) {
         [self pullDown:TRUE withCompletionBlock:nil];
     }
@@ -223,13 +208,13 @@
     }
 }
 
-- (void)collectionViewControllerShouldCollapse:(SSTCollectionViewController *)vc {
+- (void)collectionViewCoordinatorShouldCollapse:(SSTCollectionViewCoordinator *)vc {
     if (_isExpanded) {
         [self pullDown:TRUE withCompletionBlock:nil];
     }
 }
 
-- (void)collectionViewController:(SSTCollectionViewController *)vc didMoveToPoint:(CGPoint)point {
+- (void)collectionViewCoordinator:(SSTCollectionViewCoordinator *)vc didMoveToPoint:(CGPoint)point {
     CGFloat height = CGRectGetHeight(self.expandedReferenceView.frame) - point.y;
     
     CGRect containerFrame = self.collectionContainerView.frame;
@@ -249,7 +234,7 @@
     [self.view layoutIfNeeded];
 }
 
-- (void)collectionViewController:(SSTCollectionViewController *)vc didStopMovingAtPoint:(CGPoint)point withVelocity:(CGPoint)velocity {
+- (void)collectionViewCoordinator:(SSTCollectionViewCoordinator *)vc didStopMovingAtPoint:(CGPoint)point withVelocity:(CGPoint)velocity {
     if (_isExpanded) {
         if (point.y < 100.0f) {
             [self pullUp:TRUE withCompletionBlock:nil];

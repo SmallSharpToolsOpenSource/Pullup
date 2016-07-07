@@ -8,32 +8,14 @@
 
 #import "SSTBaseViewController.h"
 
-@protocol SSTCollectionDelegate;
+#import "SSTCollectionViewCoordinator.h"
 
 @interface SSTCollectionViewController : SSTBaseViewController
 
-@property (weak, nonatomic) id<SSTCollectionDelegate> delegate;
+@property (weak, nonatomic) id<SSTCollectionViewCoordinatorDelegate> delegate;
 
 - (void)expandedViewDidAppear;
 
 - (void)expandedViewDidDisappear;
-
-@end
-
-@protocol SSTCollectionDelegate <NSObject>
-
-@required
-
-- (UIView *)collectionViewControllerPrimaryView:(SSTCollectionViewController *)vc;
-
-@optional
-
-- (void)collectionViewControllerDidTapHeader:(SSTCollectionViewController *)vc;
-
-- (void)collectionViewControllerShouldCollapse:(SSTCollectionViewController *)vc;
-
-- (void)collectionViewController:(SSTCollectionViewController *)vc didMoveToPoint:(CGPoint)point;
-
-- (void)collectionViewController:(SSTCollectionViewController *)vc didStopMovingAtPoint:(CGPoint)point withVelocity:(CGPoint)velocity;
 
 @end

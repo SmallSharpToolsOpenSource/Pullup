@@ -257,7 +257,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SST;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = SmallSharpTools;
 				TargetAttributes = {
 					269A3F2219BFB94C009539B7 = {
@@ -479,6 +479,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -551,6 +552,7 @@
 					"\"${PODS_ROOT}/Headers/Public/UIView-Autolayout\"",
 					"-Werror",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.smallsharptools.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -576,6 +578,7 @@
 					"\"${PODS_ROOT}/Headers/Public/UIView-Autolayout\"",
 					"-Werror",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.smallsharptools.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -586,11 +589,7 @@
 			baseConfigurationReference = CC7D85E396133F021B0B7E1A /* Pods-PullupTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Pullup.app/Pullup";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pullup/Pullup-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -598,6 +597,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PullupTests/PullupTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.smallsharptools.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -609,14 +609,11 @@
 			baseConfigurationReference = E2642A9E21E03AD15EB16CDF /* Pods-PullupTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Pullup.app/Pullup";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pullup/Pullup-Prefix.pch";
 				INFOPLIST_FILE = "PullupTests/PullupTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.smallsharptools.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

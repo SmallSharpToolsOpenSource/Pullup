@@ -23,7 +23,7 @@
 }
 
 - (void)embedViewController:(UIViewController *)vc intoView:(UIView *)superview placementBlock:(void (^)(UIView *view))placementBlock {
-    NSAssert(vc, @"VC must be define");
+    NSAssert(vc, @"VC must be defined");
     NSAssert(superview, @"Superview must be defined");
     
     vc.view.translatesAutoresizingMaskIntoConstraints = NO;

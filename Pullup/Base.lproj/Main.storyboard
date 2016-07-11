@@ -89,7 +89,7 @@
         <!--Collection View Controller-->
         <scene sceneID="Qil-5E-zxw">
             <objects>
-                <viewController storyboardIdentifier="CollectionVC" id="Tlp-l9-eum" customClass="SSTCollectionViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CollectionVC" automaticallyAdjustsScrollViewInsets="NO" id="Tlp-l9-eum" customClass="SSTCollectionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="joU-Um-H6i"/>
                         <viewControllerLayoutGuide type="bottom" id="vaa-pe-obe"/>
@@ -209,11 +209,12 @@
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="hqY-TV-EZC" firstAttribute="leading" secondItem="vf0-m7-fcZ" secondAttribute="leading" id="74k-ts-7dM"/>
-                            <constraint firstItem="hqY-TV-EZC" firstAttribute="bottom" secondItem="vaa-pe-obe" secondAttribute="top" id="8as-0e-LFh"/>
-                            <constraint firstItem="hqY-TV-EZC" firstAttribute="top" secondItem="vf0-m7-fcZ" secondAttribute="top" id="Ipd-03-Jwd"/>
                             <constraint firstAttribute="trailing" secondItem="hqY-TV-EZC" secondAttribute="trailing" id="J1p-ml-meI"/>
+                            <constraint firstItem="vaa-pe-obe" firstAttribute="top" secondItem="hqY-TV-EZC" secondAttribute="bottom" id="Ois-08-heS"/>
+                            <constraint firstItem="hqY-TV-EZC" firstAttribute="top" secondItem="vf0-m7-fcZ" secondAttribute="top" id="ZxQ-xW-qTI"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="400"/>
                     <connections>
@@ -282,6 +283,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Cat" width="186" height="242"/>
+        <image name="Cat" width="400" height="500"/>
     </resources>
 </document>

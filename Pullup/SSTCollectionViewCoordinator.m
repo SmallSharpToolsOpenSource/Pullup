@@ -23,7 +23,7 @@
 
 @property (readonly, nonatomic) UIView *primaryView;
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (readwrite, weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @property (strong, nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
 
@@ -31,14 +31,6 @@
 
 @implementation SSTCollectionViewCoordinator {
     CGPoint _panGestureStartingPoint;
-}
-
-- (void)awakeFromNib {
-    DebugLog(@"Awake from Nib");
-
-//    NSAssert(self.collectionView, @"Outlet is required");
-//    NSAssert(self.collectionView.dataSource == self, @"DataSource must be self");
-//    NSAssert(self.collectionView.delegate = self, @"Delegate must be self");
 }
 
 #pragma mark - Public
@@ -114,7 +106,7 @@
             break;
 
         default:
-            NSAssert(FALSE, @"Condition should never occur.");
+            NSAssert(NO, @"Condition should never occur.");
             break;
     }
 }
@@ -123,6 +115,10 @@
 #pragma mark -
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    NSAssert(self.collectionView, @"Outlet is required");
+    NSAssert(self.collectionView.dataSource == self, @"DataSource must be self");
+    NSAssert(self.collectionView.delegate = self, @"Delegate must be self");
+
     return kNumberOfItems;
 }
 
@@ -160,7 +156,7 @@
 #pragma mark -
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return TRUE;
+    return YES;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -169,12 +165,12 @@
     }
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.25f * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [collectionView deselectItemAtIndexPath:indexPath animated:TRUE];
+        [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     });
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(CGRectGetWidth(collectionView.frame), CGRectGetHeight(collectionView.frame));
+    return CGSizeMake(CGRectGetWidth(collectionView.superview.frame), CGRectGetHeight(collectionView.superview.frame));
 }
 
 #pragma mark - UITableViewDataSource
@@ -202,7 +198,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.25f * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     });
 }
 

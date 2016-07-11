@@ -14,8 +14,9 @@
 
 @property (weak, nonatomic) id<SSTCollectionViewCoordinatorDelegate> delegate;
 
-- (void)expandedViewDidAppear;
-
-- (void)expandedViewDidDisappear;
+- (void)willExpand;
+- (void)didExpand;
+- (void)willCollapse;
+- (void)didCollapse;
 
 @end

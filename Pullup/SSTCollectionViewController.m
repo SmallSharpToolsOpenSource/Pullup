@@ -42,11 +42,19 @@
 #pragma mark - Public
 #pragma mark -
 
-- (void)expandedViewDidAppear {
+- (void)willExpand {
+    // do nothing
+}
+
+- (void)didExpand {
     [self.coordinator flashScrollIndicators];
 }
 
-- (void)expandedViewDidDisappear {
+- (void)willCollapse {
+    // do nothing
+}
+
+- (void)didCollapse {
     // do nothing
 }
 
@@ -56,12 +64,17 @@
 - (IBAction)detailDisclosureButtonTapped:(UIButton *)sender {
     DebugLog(@"sender: %@", sender);
 
+    NSString *title = @"Info";
+    NSString *message = @"You tapped the detail disclosure button.";
+
     NSIndexPath *indexPath = [self.coordinator indexPathForView:sender];
+    NSAssert(indexPath, @"Value is required");
     if (indexPath) {
         DebugLog(@"Item %ld", (long)indexPath.item + 1);
+        message = [NSString stringWithFormat:@"You tapped the detail disclosure button for Item %li.", (long)(indexPath.item + 1)];
     }
 
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Info" message:@"You tapped the detail disclosure button." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         DebugLog(@"OK");
     }]];

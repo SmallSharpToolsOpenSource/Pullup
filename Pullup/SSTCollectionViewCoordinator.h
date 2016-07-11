@@ -14,6 +14,8 @@
 
 @property (weak, nonatomic) id<SSTCollectionViewCoordinatorDelegate> delegate;
 
+@property (readonly, weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
 - (void)flashScrollIndicators;
 
 - (NSIndexPath *)indexPathForView:(UIView *)view;

@@ -1,9 +1,9 @@
 
-platform :ios, '7.0'
+platform :ios, '8.0'
 
 target 'Pullup' do
   # Uncomment this line if you're using Swift or would like to use dynamic frameworks
-  # use_frameworks!
+  use_frameworks!
 
   # Pods for Pullup
   pod 'UIView-Autolayout', '~> 0.2.0'

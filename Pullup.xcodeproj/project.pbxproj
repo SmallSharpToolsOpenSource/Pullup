@@ -27,8 +27,8 @@
 		269A3F3C19BFBCBB009539B7 /* SSTBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 269A3F3B19BFBCBB009539B7 /* SSTBaseViewController.m */; };
 		269A3F3F19BFBED0009539B7 /* SSTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 269A3F3E19BFBED0009539B7 /* SSTMainViewController.m */; };
 		269A3F4219BFBF10009539B7 /* SSTCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 269A3F4119BFBF10009539B7 /* SSTCollectionViewController.m */; };
-		674D47C66628D028EBDCD018 /* libPods-PullupTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8571A2B4A69BB20DF4777F36 /* libPods-PullupTests.a */; };
-		D801349255462CA484FD5710 /* libPods-Pullup.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 262281221BB429254360C7BA /* libPods-Pullup.a */; };
+		6D7BC21F533D778EFD8D07E8 /* Pods_Pullup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1D91421BE17A43D72D7ACB4 /* Pods_Pullup.framework */; };
+		DBDFCB4F9892E3EBB0DF6317 /* Pods_PullupTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046FAF41D9B7DA65A0676F2C /* Pods_PullupTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,8 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		046FAF41D9B7DA65A0676F2C /* Pods_PullupTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PullupTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		260E7FCC1BCF7FD6008324C9 /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
-		262281221BB429254360C7BA /* libPods-Pullup.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pullup.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		262B18441D244E4A00CD0230 /* Macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		2677BAB41D2DE09000814528 /* SSTLocationBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTLocationBarViewController.h; sourceTree = "<group>"; };
 		2677BAB51D2DE09000814528 /* SSTLocationBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTLocationBarViewController.m; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 		269A3F4019BFBF10009539B7 /* SSTCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTCollectionViewController.h; sourceTree = "<group>"; };
 		269A3F4119BFBF10009539B7 /* SSTCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTCollectionViewController.m; sourceTree = "<group>"; };
 		6EFB4EB3353AC9888860A427 /* Pods-Pullup.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pullup.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pullup/Pods-Pullup.debug.xcconfig"; sourceTree = "<group>"; };
-		8571A2B4A69BB20DF4777F36 /* libPods-PullupTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PullupTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1D91421BE17A43D72D7ACB4 /* Pods_Pullup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pullup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC7D85E396133F021B0B7E1A /* Pods-PullupTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PullupTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PullupTests/Pods-PullupTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D1F8F19038E9FC7CCB22C733 /* Pods-Pullup.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pullup.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pullup/Pods-Pullup.release.xcconfig"; sourceTree = "<group>"; };
 		E2642A9E21E03AD15EB16CDF /* Pods-PullupTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PullupTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PullupTests/Pods-PullupTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 				269A3F0819BFB94C009539B7 /* CoreGraphics.framework in Frameworks */,
 				269A3F0A19BFB94C009539B7 /* UIKit.framework in Frameworks */,
 				269A3F0619BFB94C009539B7 /* Foundation.framework in Frameworks */,
-				D801349255462CA484FD5710 /* libPods-Pullup.a in Frameworks */,
+				6D7BC21F533D778EFD8D07E8 /* Pods_Pullup.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +100,7 @@
 				269A3F2519BFB94C009539B7 /* XCTest.framework in Frameworks */,
 				269A3F2719BFB94C009539B7 /* UIKit.framework in Frameworks */,
 				269A3F2619BFB94C009539B7 /* Foundation.framework in Frameworks */,
-				674D47C66628D028EBDCD018 /* libPods-PullupTests.a in Frameworks */,
+				DBDFCB4F9892E3EBB0DF6317 /* Pods_PullupTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,8 +134,8 @@
 				269A3F0719BFB94C009539B7 /* CoreGraphics.framework */,
 				269A3F0919BFB94C009539B7 /* UIKit.framework */,
 				269A3F2419BFB94C009539B7 /* XCTest.framework */,
-				262281221BB429254360C7BA /* libPods-Pullup.a */,
-				8571A2B4A69BB20DF4777F36 /* libPods-PullupTests.a */,
+				C1D91421BE17A43D72D7ACB4 /* Pods_Pullup.framework */,
+				046FAF41D9B7DA65A0676F2C /* Pods_PullupTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -260,6 +260,9 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = SmallSharpTools;
 				TargetAttributes = {
+					269A3F0119BFB94C009539B7 = {
+						DevelopmentTeam = M3FCT79SM9;
+					};
 					269A3F2219BFB94C009539B7 = {
 						TestTargetID = 269A3F0119BFB94C009539B7;
 					};
@@ -494,7 +497,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -526,7 +529,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -538,6 +541,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pullup/Pullup-Prefix.pch";
 				INFOPLIST_FILE = "Pullup/Pullup-Info.plist";
@@ -564,6 +568,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pullup/Pullup-Prefix.pch";
 				INFOPLIST_FILE = "Pullup/Pullup-Info.plist";

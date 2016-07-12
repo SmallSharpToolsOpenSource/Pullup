@@ -1,7 +1,7 @@
 # Pullup
 
 <div style="float:right;margin:0 0 20px 0" markdown="1">
-![GIF](/Pullup.gif)
+![GIF](Pullup.gif)
 </div>
 
 Pullup UI which allows for a full screen UI which is pulled up from the bottom. The summary view appears at the bottom and can be expanded by either tapping or pulling it up. Items can scroll horizontally while details for an item can be scrolled vertically once the view is expanded.

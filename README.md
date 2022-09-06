@@ -8,7 +8,7 @@ The detail disclosure button in the draggable header demonstrates that it is pos
 
 ## View Hierarchy and Communication
 
-The view hierarchy is a composition of various view controllers which manage a view which is embedded in the main view. Actions which are related to views in the main view will need to be communicated. Relaying changes can be done using delegation or notifications. Since the view hierarchy has many layers it would required many delegates which makes it a most costly option than simply posting notifications from a subcontroller which the main controller is observing. It is also possible to share a single delegate instance with all subcontrollers which will pass along updates to the main controller. There are many options.
+The view hierarchy is a composition of various view controllers which manage a child view which is embedded in the main view. Actions which are related to views in the main view will need to be communicated. Relaying changes can be done using delegation or notifications. Since the view hierarchy has many layers it would required many delegates which makes it a more costly option than simply posting notifications from a subcontroller which the main controller is observing. It is also possible to share a single delegate instance with all subcontrollers which will pass along updates to the main controller. There are many options.
 
 ![GIF](Pullup.gif)
 
